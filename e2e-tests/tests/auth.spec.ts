@@ -23,28 +23,28 @@ test('should allow user to sign in', async ({ page }) => {
 	await expect(page.getByRole('button', { name: 'Sign Out' })).toBeVisible();
 });
 
-test("shoul allow user to register", async ({ page }) => {
-  const testEmail = `register${Date.now()}@test.com`;
+test('shoul allow user to register', async ({ page }) => {
+	const testEmail = `register${Date.now()}@test.com`;
 
-  await page.goto(UI_URL);
+	await page.goto(UI_URL);
 
-  // Click the register button
-  await page.getByRole('link', { name: 'Create Account' }).click();
+	// Click the register button
+	await page.getByRole('link', { name: 'Create Account' }).click();
 
-  await expect(page.getByRole('heading', { name: 'Welcome to rural' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Welcome to rural' })).toBeVisible();
 
-  // Fill in form
-  await page.locator('[name=firstName]').fill('Kit');
-  await page.locator('[name=lastName]').fill('Kat');
-  await page.locator('[name=email]').fill(testEmail);
-  await page.locator('[name=password]').fill('password123');
-  await page.locator('[name=confirmPassword]').fill('password123');
+	// Fill in form
+	await page.locator('[name=firstName]').fill('Kit');
+	await page.locator('[name=lastName]').fill('Kat');
+	await page.locator('[name=email]').fill(testEmail);
+	await page.locator('[name=password]').fill('password123');
+	await page.locator('[name=confirmPassword]').fill('password123');
 
-  // Click the register button
-  await page.getByRole('button', { name: 'Create Account' }).click();
+	// Click the register button
+	await page.getByRole('button', { name: 'Create Account' }).click();
 
-  await expect(page.getByText('Registration successful!')).toBeVisible();
+	await expect(page.getByText('Registration successful!')).toBeVisible();
 	await expect(page.getByRole('link', { name: 'My Bookings' })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'List your property' })).toBeVisible();
 	await expect(page.getByRole('button', { name: 'Sign Out' })).toBeVisible();
-})
+});

@@ -61,3 +61,17 @@ export const signOut = async () => {
 		throw new Error('Failed to sign out');
 	}
 };
+
+export const listMyProperty = async (propertyFormData: FormData) => {
+	const response = await fetch(`${API_BASE_URL}/api/my-properties`, {
+		method: "POST",
+		credentials: "include",
+		body: propertyFormData
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to add property');
+	}
+
+	return response.json();
+}

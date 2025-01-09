@@ -17,7 +17,7 @@ const Navbar = () => {
 							<Link to='/my-bookings' className='text-gray-700 text-md  me-8 hover:text-gray-900'>
 								My Bookings
 							</Link>
-							<Link to='/my-place' className='text-gray-700 text-md  me-10 hover:text-gray-900'>
+							<Link to='/list-property' className='text-gray-700 text-md  me-10 hover:text-gray-900'>
 								List your property
 							</Link>
 							<SignOutButton />
