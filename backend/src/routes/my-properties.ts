@@ -2,14 +2,18 @@ import express from 'express';
 import multer from 'multer';
 import verifyToken from '../middleware/auth';
 import { body } from 'express-validator';
-import { addProperty } from '../controllers/propertyController';
+import { getAllProperties, addProperty } from '../controllers/propertyController';
 
 const router = express.Router();
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
-// api/my-properties
+//* api/my-properties
+// get all properties
+router.get('/', verifyToken, getAllProperties);
+
+// add property
 router.post(
 	'/',
 	verifyToken,

@@ -5,6 +5,7 @@ import SignIn from './pages/SignIn';
 import Single from './layouts/Single';
 import ListProperty from './pages/ListProperty';
 import { useAppContext } from './contexts/AppContext';
+import MyProperty from './pages/MyProperty';
 
 function App() {
 	const { isLoggedIn } = useAppContext();
@@ -47,6 +48,14 @@ function App() {
 					/>
 					{isLoggedIn && (
 						<>
+							<Route
+								path='/my-property'
+								element={
+									<Single>
+										<MyProperty />
+									</Single>
+								}
+							/>
 							<Route
 								path='/list-property'
 								element={
