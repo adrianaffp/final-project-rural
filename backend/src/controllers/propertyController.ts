@@ -7,7 +7,21 @@ export const getAllProperties = async (req: Request, res: Response) => {
 	try {
 		const property = await Property.find({ userId: req.userId });
 		res.json(property);
+	} catch (error) {
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
 
+export const getProperty = async (req: Request, res: Response) => {
+	const id = req.params.id;
+
+	try {
+		const property = await Property.findOne({
+			_id: id,
+			userId: req.userId,
+		});
+
+		res.json(property);
 	} catch (error) {
 		res.status(500).json({ message: 'Internal server error' });
 	}
@@ -18,15 +32,7 @@ export const addProperty = async (req: Request, res: Response) => {
 		const imageFiles = req.files as Express.Multer.File[];
 		const newProperty: PropertyType = req.body;
 
-		const uploadPromises = imageFiles.map(async img => {
-			const b64 = Buffer.from(img.buffer).toString('base64');
-			let dataURI = 'data:' + img.mimetype + ';base64,' + b64;
-
-			const response = await cloudinary.v2.uploader.upload(dataURI);
-			return response.url;
-		});
-
-		const imageUrls = await Promise.all(uploadPromises);
+		const imageUrls = await uploadImages(imageFiles);
 
 		newProperty.imageUrls = imageUrls;
 		newProperty.updatedAt = new Date();
@@ -41,3 +47,49 @@ export const addProperty = async (req: Request, res: Response) => {
 		res.status(500).json({ message: 'Internal server error' });
 	}
 };
+
+export const updateProperty = async (req: Request, res: Response) => {
+	try {
+		const updatedProperty: PropertyType = req.body;
+		updatedProperty.updatedAt = new Date();
+
+		const property = await Property.findOneAndUpdate(
+			{
+				_id: req.params.propertyId,
+				userId: req.userId,
+			},
+			updatedProperty,
+			{ new: true },
+		);
+
+		if (!property) {
+			res.status(404).json({ message: 'Property not found' });
+			return;
+		}
+
+		const files = req.files as Express.Multer.File[];
+		const updatedImages = await uploadImages(files);
+
+		property.imageUrls = [...updatedImages, ...(updatedProperty.imageUrls || [])];
+
+		await property.save();
+
+		res.status(201).json(property);
+	} catch (error) {
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+// Uploads images to cloudinary
+async function uploadImages(imageFiles: Express.Multer.File[]): Promise<string[]> {
+	const uploadPromises = imageFiles.map(async img => {
+		const b64 = Buffer.from(img.buffer).toString('base64');
+		let dataURI = 'data:' + img.mimetype + ';base64,' + b64;
+
+		const response = await cloudinary.v2.uploader.upload(dataURI);
+		return response.url;
+	});
+
+	const imageUrls = await Promise.all(uploadPromises);
+	return imageUrls;
+}

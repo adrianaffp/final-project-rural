@@ -75,11 +75,23 @@ export const getMyProperties = async (): Promise<PropertyType[]> => {
 	return response.json();
 };
 
+export const getMyPropertyById = async (propertyId: string): Promise<PropertyType> => {
+	const response = await fetch(`${API_BASE_URL}/api/my-properties/${propertyId}`, {
+		credentials: 'include',
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to get property');
+	}
+
+	return response.json();
+};
+
 export const listMyProperty = async (propertyFormData: FormData) => {
 	const response = await fetch(`${API_BASE_URL}/api/my-properties`, {
-		method: "POST",
-		credentials: "include",
-		body: propertyFormData
+		method: 'POST',
+		credentials: 'include',
+		body: propertyFormData,
 	});
 
 	if (!response.ok) {
@@ -87,4 +99,18 @@ export const listMyProperty = async (propertyFormData: FormData) => {
 	}
 
 	return response.json();
-}
+};
+
+export const updateMyHotelById = async (propertyFormData: FormData) => {
+	const response = await fetch(`${API_BASE_URL}/api/my-properties/${propertyFormData.get('propertyId')}`, {
+		method: 'PUT',
+		credentials: 'include',
+		body: propertyFormData,
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to update property');
+	}
+
+	return response.json();
+};

@@ -6,6 +6,7 @@ import Single from './layouts/Single';
 import ListProperty from './pages/ListProperty';
 import { useAppContext } from './contexts/AppContext';
 import MyProperty from './pages/MyProperty';
+import EditProperty from './pages/EditProperty';
 
 function App() {
 	const { isLoggedIn } = useAppContext();
@@ -61,6 +62,14 @@ function App() {
 								element={
 									<Single>
 										<ListProperty />
+									</Single>
+								}
+							/>
+							<Route
+								path='/edit-property/:propertyId'
+								element={
+									<Single>
+										<EditProperty />
 									</Single>
 								}
 							/>

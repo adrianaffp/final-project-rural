@@ -4,6 +4,8 @@ import TypesSection from './TypesSection';
 import FacilitiesSection from './FacilitiesSection';
 import GuestsSection from './GuestsSection';
 import ImagesSection from './ImagesSection';
+import { PropertyType } from '../../../../backend/src/shared/types';
+import { useEffect } from 'react';
 
 export type PropertyFormData = {
 	name: string;
@@ -16,22 +18,34 @@ export type PropertyFormData = {
 	starRating: number;
 	pricePerNight: number;
 	imageFiles: FileList;
+	imageUrls: string[];
 };
 
 type Props = {
+	property?: PropertyType;
 	onSave: (PropertyFormData: FormData) => void;
 	isLoading: boolean;
 };
 
-const ManagePropertyForm = ({ onSave, isLoading }: Props) => {
+const ManagePropertyForm = ({ onSave, isLoading, property }: Props) => {
 	const formMethods = useForm<PropertyFormData>();
 
-	const { handleSubmit } = formMethods;
+	const { handleSubmit, reset } = formMethods;
+
+	useEffect(() => {
+		reset(property);
+	}, [property, reset]);
 
 	const onSubmit = handleSubmit((formDataJson: PropertyFormData) => {
 		console.log('Submitted form data:', formDataJson);
 
 		const formData = new FormData();
+
+		// for edit property
+		if (property) {
+			formData.append('propertyId', property._id);
+		}
+		//
 
 		formData.append('name', formDataJson.name);
 		formData.append('city', formDataJson.city);
@@ -45,6 +59,14 @@ const ManagePropertyForm = ({ onSave, isLoading }: Props) => {
 		formDataJson.facilities.forEach((facility, index) => {
 			formData.append(`facilities[${index}]`, facility);
 		});
+
+		// for edit property
+		if (formDataJson.imageUrls) {
+			formDataJson.imageUrls.forEach((imageUrl, index) => {
+				formData.append(`imageUrls[${index}]`, imageUrl);
+			});
+		}
+		//
 
 		Array.from(formDataJson.imageFiles).forEach(file => {
 			formData.append(`imageFiles`, file);
