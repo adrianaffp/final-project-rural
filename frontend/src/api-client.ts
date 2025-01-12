@@ -1,6 +1,6 @@
 import { RegisterFormData } from './pages/Register';
 import { SignInFormData } from './pages/SignIn';
-import { PropertyType } from '../../backend/src/shared/types';
+import { PropertySearchResult, PropertyType } from '../../backend/src/shared/types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
@@ -101,7 +101,7 @@ export const listMyProperty = async (propertyFormData: FormData) => {
 	return response.json();
 };
 
-export const updateMyHotelById = async (propertyFormData: FormData) => {
+export const updateMyPropertyById = async (propertyFormData: FormData) => {
 	const response = await fetch(`${API_BASE_URL}/api/my-properties/${propertyFormData.get('propertyId')}`, {
 		method: 'PUT',
 		credentials: 'include',
@@ -110,6 +110,47 @@ export const updateMyHotelById = async (propertyFormData: FormData) => {
 
 	if (!response.ok) {
 		throw new Error('Failed to update property');
+	}
+
+	return response.json();
+};
+
+export type SearchParams = {
+	destination?: string;
+	checkIn?: string;
+	checkOut?: string;
+	adultCount?: string;
+	childCount?: string;
+	page?: string;
+	facilities?: string[];
+	types?: string[];
+	stars?: string[];
+	maxPrice?: string;
+	sortOptions?: string;
+};
+
+export const searchProperty = async (searchParams: SearchParams): Promise<PropertySearchResult> => {
+	const queryParams = new URLSearchParams();
+
+	// search params
+	queryParams.append('destination', searchParams.destination || '');
+	queryParams.append('checkIn', searchParams.checkIn || '');
+	queryParams.append('checkOut', searchParams.checkOut || '');
+	queryParams.append('adultCount', searchParams.adultCount || '');
+	queryParams.append('childCount', searchParams.childCount || '');
+	queryParams.append('page', searchParams.page || '');
+
+	// filtering
+	queryParams.append('sortOptions', searchParams.sortOptions || '');
+	queryParams.append('maxPrice', searchParams.maxPrice || '');
+	searchParams.facilities?.forEach(facility => queryParams.append('facilities', facility));
+	searchParams.types?.forEach(type => queryParams.append('types', type));
+	searchParams.stars?.forEach(star => queryParams.append('stars', star));
+
+	const response = await fetch(`${API_BASE_URL}/api/properties/search?${queryParams}`);
+
+	if (!response.ok) {
+		throw new Error('Failed to search properties');
 	}
 
 	return response.json();

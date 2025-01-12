@@ -12,7 +12,7 @@ const EditProperty = () => {
 		enabled: !!propertyId,
     });
     
-    const { mutate, isLoading } = useMutation(apiClient.updateMyHotelById, {
+    const { mutate, isLoading } = useMutation(apiClient.updateMyPropertyById, {
         onSuccess: () => {
             showToast({ message: 'Property updated successfully!', type: 'SUCCESS' });
         },

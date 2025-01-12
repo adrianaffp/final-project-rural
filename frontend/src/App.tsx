@@ -7,6 +7,7 @@ import ListProperty from './pages/ListProperty';
 import { useAppContext } from './contexts/AppContext';
 import MyProperty from './pages/MyProperty';
 import EditProperty from './pages/EditProperty';
+import Search from './pages/Search';
 
 function App() {
 	const { isLoggedIn } = useAppContext();
@@ -27,7 +28,7 @@ function App() {
 						path='/search'
 						element={
 							<Layout>
-								<p>Search Page</p>
+								<Search/>
 							</Layout>
 						}
 					/>

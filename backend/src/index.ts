@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import { v2 as cloudinary } from 'cloudinary';
 import myPropertiesRoutes from './routes/my-properties';
+import propertiesRoutes from './routes/properties';
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, '../../frontend/dist')))
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/my-properties', myPropertiesRoutes);
+app.use("/api/properties", propertiesRoutes)
 
 // for protective routes
 app.get("*", (req: Request, res: Response) => {

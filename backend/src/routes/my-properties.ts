@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import verifyToken from '../middleware/auth';
 import { body } from 'express-validator';
-import { getAllProperties, addProperty, getProperty, updateProperty } from '../controllers/propertyController';
+import { getAllProperties, addProperty, getProperty, updateProperty } from '../controllers/my-properties-controller';
 
 const router = express.Router();
 
