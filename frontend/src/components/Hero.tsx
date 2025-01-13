@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import heroImg from '../assets/CascataTahitiGeres.jpg';
 import { IoBedOutline } from 'react-icons/io5';
 
 const Hero = () => {
@@ -8,7 +7,7 @@ const Hero = () => {
 			<div
 				className='h-[calc(100vh-11rem)] w-full bg-cover bg-top rounded-xl'
 				style={{
-					backgroundImage: `url(${heroImg})`,
+					backgroundImage: `url('CascataTahitiGeres.jpg')`,
 				}}
 			>
 				{/* hero content */}
