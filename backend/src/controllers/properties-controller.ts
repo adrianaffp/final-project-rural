@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Property from '../models/property';
 import { PropertySearchResult } from '../shared/types';
+import { validationResult } from 'express-validator';
 
 export const getSearchProperties = async (req: Request, res: Response) => {
 	try {
@@ -39,6 +40,25 @@ export const getSearchProperties = async (req: Request, res: Response) => {
 		};
 
 		res.json(response);
+	} catch (error) {
+		console.log('error', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+export const getPropertyById = async (req: Request, res: Response) => {
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		res.status(400).json({ errors: errors.array() });
+		return;
+	}
+
+	const id = req.params.id.toString();
+
+	try {
+		const property = await Property.findById(id);
+		res.json(property);
 	} catch (error) {
 		console.log('error', error);
 		res.status(500).json({ message: 'Internal server error' });

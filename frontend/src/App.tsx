@@ -8,6 +8,7 @@ import { useAppContext } from './contexts/AppContext';
 import MyProperty from './pages/MyProperty';
 import EditProperty from './pages/EditProperty';
 import Search from './pages/Search';
+import PropertyDetail from './pages/PropertyDetail';
 
 function App() {
 	const { isLoggedIn } = useAppContext();
@@ -28,7 +29,15 @@ function App() {
 						path='/search'
 						element={
 							<Layout>
-								<Search/>
+								<Search />
+							</Layout>
+						}
+					/>
+					<Route
+						path='/detail/:propertyId'
+						element={
+							<Layout>
+								<PropertyDetail />
 							</Layout>
 						}
 					/>

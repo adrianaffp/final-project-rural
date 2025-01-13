@@ -30,4 +30,17 @@ test("should show properties search results", async ({ page }) => {
 
     await expect(page.getByText('Properties found in Kit Kat City')).toBeVisible();
     await expect(page.getByText('Kit Kat House')).toBeVisible();
- })
+})
+ 
+test("should show the property detail page", async ({ page }) => {
+	await page.goto(UI_URL);
+
+	// destination input fill
+	await page.getByPlaceholder('Where to?').fill('Kit Kat City');
+	await page.getByRole('button', { name: 'Search' }).click();
+
+	// go to property detail page
+	await page.getByText("Kit Kat House").click();
+	await expect(page).toHaveURL(/detail/);
+	await expect (page.getByRole("button", {name: "Book Now!"})).toBeVisible();
+})
