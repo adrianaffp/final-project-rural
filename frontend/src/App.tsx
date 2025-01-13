@@ -9,6 +9,7 @@ import MyProperty from './pages/MyProperty';
 import EditProperty from './pages/EditProperty';
 import Search from './pages/Search';
 import PropertyDetail from './pages/PropertyDetail';
+import Hero from './components/Hero';
 
 function App() {
 	const { isLoggedIn } = useAppContext();
@@ -21,6 +22,7 @@ function App() {
 						path='/'
 						element={
 							<Layout>
+								<Hero/>
 								<p>Home Page</p>
 							</Layout>
 						}

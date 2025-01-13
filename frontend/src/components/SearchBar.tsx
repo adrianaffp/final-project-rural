@@ -3,8 +3,8 @@ import { useSearchContext } from '../contexts/SearchContext';
 import { IoSearchOutline } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FaRegTrashCan } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
+import { IoCalendarOutline } from 'react-icons/io5';
 
 const SearchBar = () => {
 	const navigate = useNavigate();
@@ -29,16 +29,24 @@ const SearchBar = () => {
 	maxDate.setFullYear(maxDate.getFullYear() + 1);
 
 	return (
-		<form onSubmit={handleSubmit} className='container mx-auto bg-slate-200 rounded-full grid grid-cols-2 lg:grid-cols-5 items-center gap-4 px-3 py-2'>
-			<div className='flex flex-row items-center flex-1 gap-2 px-4 py-2 rounded-full bg-white'>
-				<IoSearchOutline />
-				<input placeholder='Where to?' className='font-syne w-full text-md font-light text-slate-700 focus:outline-none' value={destination} onChange={e => setDestination(e.target.value)} />
+		<form onSubmit={handleSubmit} className='container mx-auto bg-white shadow-md border border-slate-100 rounded-md lg:rounded-full grid grid-cols-2 lg:grid-cols-5 gap-4 px-3 py-2 mt-5'>
+			{/* destination */}
+			<div className='flex flex-row items-center flex-1 gap-2 px-4 py-2 rounded-full bg-slate-100'>
+				<IoSearchOutline className='w-5 h-5 text-slate-700' />
+				<input
+					placeholder='Where to?'
+					className='w-full bg-slate-100 font-syne text-md font-light text-slate-700 focus:outline-none'
+					value={destination}
+					onChange={e => setDestination(e.target.value)}
+				/>
 			</div>
-			<div className='flex flex-row justify-center items-center flex-1 gap-2 px-4 py-2 rounded-full bg-white'>
-				<label className='flex items-center'>
+
+			{/* guests */}
+			<div className='flex flex-row items-center lg:justify-center px-5 py-2 gap-1 rounded-full bg-slate-100'>
+				<label className='flex items-center text-slate-700 text-sm ml-2'>
 					Adults:
 					<input
-						className='w-full p-1 focus:outline-none font-syne font-light text-md text-slate-700'
+						className='w-9 bg-slate-100 pl-1 focus:outline-none font-light text-slate-700'
 						type='number'
 						min={1}
 						max={10}
@@ -46,10 +54,11 @@ const SearchBar = () => {
 						onChange={e => setAdultCount(parseInt(e.target.value))}
 					/>
 				</label>
-				<label className='flex items-center'>
+				
+				<label className='flex items-center text-slate-700 text-sm'>
 					Children:
 					<input
-						className='w-full p-1 focus:outline-none font-syne font-light text-md text-slate-700 border-left-2 border-slate-400'
+						className='w-9 bg-slate-100 pl-1 focus:outline-none font-light text-slate-700'
 						type='number'
 						min={0}
 						max={10}
@@ -58,11 +67,16 @@ const SearchBar = () => {
 					/>
 				</label>
 			</div>
-			<div>
+
+			{/* check in & out datepicker */}
+			<div className='flex flex-row items-center gap-4 px-5 py-2 rounded-full bg-slate-100'>
+				<span>
+					<IoCalendarOutline className='w-5 h-5 text-slate-700' />
+				</span>
+
 				<DatePicker
 					placeholderText='Check-in'
-					className='min-w-full font-syne w-full text-md font-light text-slate-700 focus:outline-none'
-					wrapperClassName='min-w-full'
+					className='bg-slate-100 font-syne text-md font-light text-slate-700 focus:outline-none'
 					dateFormat={'dd/MM/yyyy'}
 					selected={checkIn}
 					onChange={date => setCheckIn(date as Date)}
@@ -71,13 +85,18 @@ const SearchBar = () => {
 					endDate={checkOut}
 					minDate={minDate}
 					maxDate={maxDate}
+					customInput={<span className='bg-slate-100 font-syne text-md font-light text-slate-700 cursor-pointer'>{checkIn ? checkIn.toLocaleDateString('en-GB') : 'Check-in'}</span>}
 				/>
 			</div>
-			<div>
+
+			<div className='flex flex-row items-center gap-4 px-5 py-2 rounded-full bg-slate-100'>
+				<span>
+					<IoCalendarOutline className='w-5 h-5 text-slate-700' />
+				</span>
+
 				<DatePicker
 					placeholderText='Check-out'
-					className='min-w-full font-syne w-full text-md font-light text-slate-700 focus:outline-none'
-					wrapperClassName='min-w-full'
+					className='bg-slate-100 font-syne text-md font-light text-slate-700 focus:outline-none'
 					dateFormat={'dd/MM/yyyy'}
 					selected={checkOut}
 					onChange={date => setCheckOut(date as Date)}
@@ -86,12 +105,14 @@ const SearchBar = () => {
 					endDate={checkOut}
 					minDate={minDate}
 					maxDate={maxDate}
+					customInput={<span className='bg-slate-100 font-syne text-md font-light text-slate-700 cursor-pointer'>{checkOut ? checkOut.toLocaleDateString('en-GB') : 'Check-out'}</span>}
 				/>
 			</div>
-			<div className='flex gap-1 '>
-				<button className='flex-1 rounded-full bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 focus:outline-none focus:shadow-outline'>Search</button>
-				<button className='rounded-full bg-slate-900 text-gray-200 font-semibold py-2 px-4 focus:outline-none focus:shadow-outline'>
-					<FaRegTrashCan />
+
+			{/* search btn */}
+			<div className='flex'>
+				<button className='flex-1 bg-slate-900 text-white font-light text-md hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-full px-12 py-2.5 disabled:opacity-50'>
+					Search Hotel
 				</button>
 			</div>
 		</form>

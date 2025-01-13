@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import { useSearchContext } from '../../contexts/SearchContext';
 import { useAppContext } from '../../contexts/AppContext';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { IoCalendarOutline } from 'react-icons/io5';
 
 type Props = {
 	propertyId: string;
@@ -57,17 +58,21 @@ const BookInfoForm = ({ propertyId, pricePerNight }: Props) => {
 	};
 
 	return (
-		<div className='flex flex-col px-8 py-6 bg-slate-100 rounded-lg gap-4'>
-			<h3 className='text-lg text-slate-800 font-semibold'>{pricePerNight}€ per night</h3>
+		<div className='flex flex-col px-8 py-6 shadow-lg border border-slate-100 rounded-lg gap-4'>
+			<h3 className='font-syne text-2xl text-slate-800 font-light text-center'>{pricePerNight}€ per night</h3>
 
 			<form onSubmit={isLoggedIn ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)}>
 				<div className='grid grid-cols-1 gap-4 items-center'>
 					{/* check in & out datepicker */}
-					<div>
+					<div className='flex flex-row items-center gap-4 px-5 py-2 rounded-full bg-slate-100'>
+						<span>
+							<IoCalendarOutline className='w-5 h-5 text-slate-700' />
+						</span>
+
 						<DatePicker
 							required
 							placeholderText='Check-in'
-							className='min-w-full font-syne w-full text-md font-light text-slate-700 focus:outline-none p-2'
+							className='bg-slate-100 font-syne text-md font-light text-slate-700 focus:outline-none cursor-pointer'
 							wrapperClassName='min-w-full'
 							dateFormat={'dd/MM/yyyy'}
 							selected={checkIn}
@@ -79,11 +84,16 @@ const BookInfoForm = ({ propertyId, pricePerNight }: Props) => {
 							maxDate={maxDate}
 						/>
 					</div>
-					<div>
+
+					<div className='flex flex-row items-center gap-4 px-5 py-2 rounded-full bg-slate-100'>
+						<span>
+							<IoCalendarOutline className='w-5 h-5 text-slate-700' />
+						</span>
+
 						<DatePicker
 							required
 							placeholderText='Check-out'
-							className='min-w-full font-syne w-full text-md font-light text-slate-700 focus:outline-none p-2'
+							className='bg-slate-100 rounded-full font-syne text-md font-light text-slate-700 focus:outline-none cursor-pointer'
 							wrapperClassName='min-w-full'
 							dateFormat={'dd/MM/yyyy'}
 							selected={checkOut}
@@ -97,11 +107,11 @@ const BookInfoForm = ({ propertyId, pricePerNight }: Props) => {
 					</div>
 
 					{/* guest count */}
-					<div className='flex flex-row justify-center gap-2 p-2 bg-white'>
+					<div className='flex flex-row justify-center gap-2 px-5 py-2 rounded-full bg-slate-100'>
 						<label className='flex items-center font-light flex-1'>
 							Adults:
 							<input
-								className='w-full p-1 focus:outline-none font-light text-md'
+								className='w-full bg-slate-100 pl-2 font-light text-md focus:outline-none'
 								type='number'
 								min={1}
 								max={10}
@@ -116,10 +126,10 @@ const BookInfoForm = ({ propertyId, pricePerNight }: Props) => {
 							/>
 						</label>
 
-						<label className='flex items-center font-light flex-1 border-slate-200'>
+						<label className='flex items-center font-light flex-1 '>
 							Children:
 							<input
-								className='w-full p-1 focus:outline-none font-light text-md'
+								className='w-full bg-slate-100 pl-2 font-light text-md focus:outline-none'
 								type='number'
 								min={0}
 								max={10}
@@ -133,11 +143,11 @@ const BookInfoForm = ({ propertyId, pricePerNight }: Props) => {
 
 					{/* submit button */}
 					{isLoggedIn ? (
-						<button className='text-white font-syne bg-slate-800 hover:bg-slate-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-light rounded-full text-md px-12 py-2.5 me-2 mb-2 disabled:opacity-50'>
-							Book Now!
+						<button className='bg-slate-900 text-white font-light text-md hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-full px-12 py-2.5 disabled:opacity-50'>
+							Book Now !
 						</button>
 					) : (
-						<button className='text-white font-syne bg-slate-800 hover:bg-slate-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-light rounded-full text-md px-12 py-2.5 me-2 mb-2 disabled:opacity-50'>
+						<button className='bg-slate-900 text-white font-light text-md hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-full px-12 py-2.5 disabled:opacity-50'>
 							Sign in to Book
 						</button>
 					)}

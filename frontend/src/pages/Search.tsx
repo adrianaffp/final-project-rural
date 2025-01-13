@@ -54,11 +54,11 @@ const Search = () => {
 	};
 
 	return (
-		<div className='grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5'>
+		<div className='grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5 mt-5'>
 			{/* Filters Aside */}
-			<div className='rounded-lg border border-slate-200 p-5 h-fit sticky top-10'>
-				<div className='space-y-5'>
-					<h3 className='text-md font-semibold border-b border-slate-300 pb-5'>Filters:</h3>
+			<div className='rounded-lg border border-slate-200 p-5 h-fit sticky top-5'>
+				<div className='space-y-4'>
+					<h3 className='text-md font-semibold border-b border-slate-300 pb-3'>Filter</h3>
 					<StarRatingFilter selectedStars={selectedStars} onChange={handleStarsChange} />
 					<TypesFilter selectedTypes={selectedTypes} onChange={handleTypesChange} />
 					<FacilitiesFilter selectedFacilities={selectedFacilities} onChange={handleFacilitiesChange} />
@@ -74,7 +74,7 @@ const Search = () => {
 					</span>
 
 					{/* Sort */}
-					<select className='border border-slate-200 rounded-md px-5 py-2' value={sortOptions} onChange={e => setSortOptions(e.target.value)}>
+					<select className='border border-slate-200 rounded-md px-5 py-2 text-sm font-light cursor-pointer' value={sortOptions} onChange={e => setSortOptions(e.target.value)}>
 						<option value=''>Sort</option>
 						<option value='starRating'>Star Rating</option>
 						<option value='pricePerNightAsc'>Price: Low to High</option>
