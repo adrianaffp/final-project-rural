@@ -7,7 +7,7 @@ const Hero = () => {
 			<div
 				className='h-[calc(100vh-11rem)] w-full bg-cover bg-top rounded-xl'
 				style={{
-					backgroundImage: `url('CascataTahitiGeres.jpg')`,
+					backgroundImage: `url('/cascataTahitiGeres.jpg')`,
 				}}
 			>
 				{/* hero content */}

@@ -1,5 +1,48 @@
 import mongoose from 'mongoose';
-import { PropertyType } from '../shared/types';
+import { BookingType, PropertyType } from '../shared/types';
+
+const bookingSchema = new mongoose.Schema<BookingType>({
+	userId: {
+		type: String,
+		required: true,
+	},
+	firstName: {
+		type: String,
+		required: true,
+	},
+	lastName: {
+		type: String,
+		required: true,
+	},
+	email: {
+		type: String,
+		required: true,
+	},
+	checkIn: {
+		type: Date,
+		required: true,
+	},
+	checkOut: {
+		type: Date,
+		required: true,
+	},
+	adultCount: {
+		type: Number,
+		required: true,
+	},
+	childCount: {
+		type: Number,
+		required: true,
+	},
+	totalCost: {
+		type: Number,
+		required: true,
+	},
+	createdAt: {
+		type: Date,
+		required: true,
+	},
+});
 
 const propertySchema = new mongoose.Schema({
 	userId: {
@@ -52,6 +95,7 @@ const propertySchema = new mongoose.Schema({
 		type: Date,
 		required: true,
 	},
+	bookings: [bookingSchema],
 });
 
 const Property = mongoose.model<PropertyType>('Property', propertySchema);

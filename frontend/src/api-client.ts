@@ -1,6 +1,8 @@
+import { PaymentIntentResponse, PropertySearchResult, PropertyType, UserType } from '../../backend/src/shared/types';
+import { BookingFormData } from './forms/bookingForm/BookingForm';
+
 import { RegisterFormData } from './pages/Register';
 import { SignInFormData } from './pages/SignIn';
-import { PropertySearchResult, PropertyType } from '../../backend/src/shared/types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
@@ -47,6 +49,18 @@ export const validateToken = async () => {
 
 	if (!response.ok) {
 		throw new Error('Invalid token');
+	}
+
+	return response.json();
+};
+
+export const getCurrentUser = async (): Promise<UserType> => {
+	const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+		credentials: 'include',
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to get current user');
 	}
 
 	return response.json();
@@ -164,4 +178,36 @@ export const getPropertyById = async (propertyId: string): Promise<PropertyType>
 	}
 
 	return response.json();
+};
+
+export const createPaymentIntent = async (propertyId: string, numOfNights: string): Promise<PaymentIntentResponse> => {
+	const response = await fetch(`${API_BASE_URL}/api/properties/${propertyId}/bookings/payment-intent`, {
+		method: 'POST',
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ numOfNights }),
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to create payment intent');
+	}
+
+	return response.json();
+};
+
+export const createPropertyBooking = async (formData: BookingFormData) => {
+	const response = await fetch(`${API_BASE_URL}/api/properties/${formData.propertyId}/bookings`, {
+		method: 'POST',
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(formData),
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to book property');
+	}
 };

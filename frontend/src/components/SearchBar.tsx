@@ -54,7 +54,7 @@ const SearchBar = () => {
 						onChange={e => setAdultCount(parseInt(e.target.value))}
 					/>
 				</label>
-				
+
 				<label className='flex items-center text-slate-700 text-sm'>
 					Children:
 					<input
@@ -85,7 +85,6 @@ const SearchBar = () => {
 					endDate={checkOut}
 					minDate={minDate}
 					maxDate={maxDate}
-					customInput={<span className='bg-slate-100 font-syne text-md font-light text-slate-700 cursor-pointer'>{checkIn ? checkIn.toLocaleDateString('en-GB') : 'Check-in'}</span>}
 				/>
 			</div>
 
@@ -105,14 +104,13 @@ const SearchBar = () => {
 					endDate={checkOut}
 					minDate={minDate}
 					maxDate={maxDate}
-					customInput={<span className='bg-slate-100 font-syne text-md font-light text-slate-700 cursor-pointer'>{checkOut ? checkOut.toLocaleDateString('en-GB') : 'Check-out'}</span>}
 				/>
 			</div>
 
 			{/* search btn */}
 			<div className='flex'>
 				<button className='flex-1 bg-slate-900 text-white font-light text-md hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-full px-12 py-2.5 disabled:opacity-50'>
-					Search Hotel
+					Search Property
 				</button>
 			</div>
 		</form>

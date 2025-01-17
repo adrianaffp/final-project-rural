@@ -1,14 +1,19 @@
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import { useAppContext } from './contexts/AppContext';
+
 import Layout from './layouts/Layout';
+import Single from './layouts/Single';
+
 import Register from './pages/Register';
 import SignIn from './pages/SignIn';
-import Single from './layouts/Single';
 import ListProperty from './pages/ListProperty';
-import { useAppContext } from './contexts/AppContext';
 import MyProperty from './pages/MyProperty';
 import EditProperty from './pages/EditProperty';
 import Search from './pages/Search';
 import PropertyDetail from './pages/PropertyDetail';
+import Booking from './pages/Booking';
+
 import Hero from './components/Hero';
 
 function App() {
@@ -22,7 +27,7 @@ function App() {
 						path='/'
 						element={
 							<Layout>
-								<Hero/>
+								<Hero />
 								<p>Home Page</p>
 							</Layout>
 						}
@@ -82,6 +87,14 @@ function App() {
 								element={
 									<Single>
 										<EditProperty />
+									</Single>
+								}
+							/>
+							<Route
+								path='/property/:propertyId/booking'
+								element={
+									<Single>
+										<Booking />
 									</Single>
 								}
 							/>
