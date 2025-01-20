@@ -13,6 +13,7 @@ import EditProperty from './pages/EditProperty';
 import Search from './pages/Search';
 import PropertyDetail from './pages/PropertyDetail';
 import Booking from './pages/Booking';
+import MyBookings from './pages/MyBookings';
 
 import Hero from './components/Hero';
 
@@ -71,6 +72,14 @@ function App() {
 								element={
 									<Single>
 										<MyProperty />
+									</Single>
+								}
+							/>
+							<Route
+								path='/my-bookings'
+								element={
+									<Single>
+										<MyBookings />
 									</Single>
 								}
 							/>

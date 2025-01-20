@@ -211,3 +211,15 @@ export const createPropertyBooking = async (formData: BookingFormData) => {
 		throw new Error('Failed to book property');
 	}
 };
+
+export const getMyBookings = async (): Promise<PropertyType[]> => {
+	const response = await fetch(`${API_BASE_URL}/api/my-bookings`, {
+		credentials: 'include',
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to get bookings');
+	}
+
+	return response.json();
+};

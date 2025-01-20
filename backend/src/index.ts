@@ -2,13 +2,15 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import mongoose from 'mongoose';
-import authRoutes from './routes/auth';
-import userRoutes from './routes/users';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import { v2 as cloudinary } from 'cloudinary';
-import myPropertiesRoutes from './routes/my-properties';
+
+import authRoutes from './routes/auth';
+import userRoutes from './routes/users';
 import propertiesRoutes from './routes/properties';
+import myPropertiesRoutes from './routes/my-properties';
+import myBookingRoutes from './routes/my-bookings';
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -28,22 +30,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
 	cors({
-		origin: process.env.FRONTEND_URL ,
+		origin: process.env.FRONTEND_URL,
 		credentials: true,
 	}),
 );
 
-app.use(express.static(path.join(__dirname, '../../frontend/dist')))
+app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/properties', propertiesRoutes);
 app.use('/api/my-properties', myPropertiesRoutes);
-app.use("/api/properties", propertiesRoutes)
+app.use('/api/my-bookings', myBookingRoutes);
 
 // for protective routes
-app.get("*", (req: Request, res: Response) => {
-	res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
-})
+app.get('*', (req: Request, res: Response) => {
+	res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+});
 
 app.listen(7000, () => {
 	console.log('Server is running on localhost:7000');
