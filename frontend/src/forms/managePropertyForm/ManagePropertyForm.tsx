@@ -9,7 +9,8 @@ import { useEffect } from 'react';
 
 export type PropertyFormData = {
 	name: string;
-	city: string;
+	region: string;
+	county: string;
 	description: string;
 	type: string;
 	facilities: string[];
@@ -48,7 +49,8 @@ const ManagePropertyForm = ({ onSave, isLoading, property }: Props) => {
 		//
 
 		formData.append('name', formDataJson.name);
-		formData.append('city', formDataJson.city);
+		formData.append('region', formDataJson.region);
+		formData.append('county', formDataJson.county);
 		formData.append('description', formDataJson.description);
 		formData.append('type', formDataJson.type);
 		formData.append('adultCount', formDataJson.adultCount.toString());
@@ -77,7 +79,14 @@ const ManagePropertyForm = ({ onSave, isLoading, property }: Props) => {
 
 	return (
 		<FormProvider {...formMethods}>
-			<form className='flex flex-col gap-10 bg-gray-50 px-5 lg:px-20 py-11 rounded-3xl' onSubmit={onSubmit}>
+			{/* header */}
+			<div className='flex flex-col md:flex-row justify-between md:items-center mb-10'>
+				<h2 className='font-syne text-3xl lg:text-5xl font-semibold'>List your property</h2>
+				<h4 className='font-syne text-sm max-w-[400px] text-slate-600 lg:text-base lg:text-end lg:leading-tight'>Get your property listed and start receiving bookings from all over the world!</h4>
+			</div>
+
+			{/* form */}
+			<form className='flex flex-col gap-10 bg-gray-50 max-w-[1000px] mx-auto px-5 lg:px-12 py-10 rounded-3xl' onSubmit={onSubmit}>
 				<DetailsSection />
 				<TypesSection />
 				<FacilitiesSection />

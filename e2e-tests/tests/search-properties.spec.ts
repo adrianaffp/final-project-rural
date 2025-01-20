@@ -24,31 +24,31 @@ test('should show properties search results', async ({ page }) => {
 	await page.goto(UI_URL);
 
 	// destination input fill
-	await page.getByPlaceholder('Where to?').fill('Kit Kat City');
+	await page.getByPlaceholder('Where to?').fill('Kit Kat');
 	await page.getByRole('button', { name: 'Search Property' }).click();
 
-	await expect(page.getByText('Properties found in Kit Kat City')).toBeVisible();
-	await expect(page.getByText('Kit Kat House')).toBeVisible();
+	await expect(page.getByText('Properties found in Kit Kat')).toBeVisible();
+	await expect(page.getByText('Kit Kat House').first()).toBeVisible();
 });
 
 test('should show the property detail page', async ({ page }) => {
 	await page.goto(UI_URL);
 
 	// destination input fill
-	await page.getByPlaceholder('Where to?').fill('Kit Kat City');
+	await page.getByPlaceholder('Where to?').fill('Kit Kat');
 	await page.getByRole('button', { name: 'Search Property' }).click();
 
 	// go to property detail page
-	await page.getByText('Kit Kat House').click();
+	await page.getByText('Kit Kat House').first().click();
 	await expect(page).toHaveURL(/detail/);
-	await expect(page.getByRole('button', { name: 'Book Now!' })).toBeVisible();
+	await expect(page.getByRole('button', { name: 'Book Now !' })).toBeVisible();
 });
 
 test('should book a property', async ({ page }) => {
 	await page.goto(UI_URL);
 
 	// destination input fill
-	await page.getByPlaceholder('Where to?').fill('Kit Kat City');
+	await page.getByPlaceholder('Where to?').fill('Kit Kat');
 
 	// check in date and check out 2 days later
 	const date = new Date();
@@ -59,7 +59,7 @@ test('should book a property', async ({ page }) => {
 	await page.getByRole('button', { name: 'Search Property' }).click();
 
 	// go to property detail page
-	await page.getByText('Kit Kat House').click();
+	await page.getByText('Kit Kat House').first().click();
 	await page.getByRole('button', { name: 'Book Now !' }).click();
 
 	// go to booking page
@@ -75,6 +75,6 @@ test('should book a property', async ({ page }) => {
 	await page.getByRole('button', { name: 'Confirm Booking' }).click();
 	await expect(page.getByText('Property booked successfully!')).toBeVisible();
 
-	await page.getByRole("link", { name: "My Bookings" }).click();
-	await expect(page.getByText("Kit Kat House")).toBeVisible();
+	await page.getByRole('link', { name: 'My Bookings' }).click();
+	await expect(page.getByText('Kit Kat House').first()).toBeVisible();
 });

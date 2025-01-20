@@ -10,7 +10,8 @@ export type PropertyType = {
 	_id: string;
 	userId: string;
 	name: string;
-	city: string;
+	region: string;
+	county: string;
 	description: string;
 	type: string;
 	adultCount: number;
@@ -35,7 +36,7 @@ export type BookingType = {
 	childCount: number;
 	totalCost: number;
 	createdAt: Date;
-}
+};
 
 export type PropertySearchResult = {
 	data: PropertyType[];

@@ -53,7 +53,11 @@ const propertySchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	city: {
+	region: {
+		type: String,
+		required: true,
+	},
+	county: {
 		type: String,
 		required: true,
 	},

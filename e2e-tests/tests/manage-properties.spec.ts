@@ -26,7 +26,8 @@ test('should alow user to list a property', async ({ page }) => {
 
 	// Fill in form
 	await page.locator('[name="name"]').fill('Kit Kat House');
-	await page.locator('[name="city"]').fill('Kit Kat City');
+	await page.locator('[name="region"]').fill('Kit Kat Region');
+	await page.locator('[name="county"]').fill('Kit Kat County');
 	await page.locator('[name="description"]').fill('Kit Kat description for testing property listing');
 	await page.locator('[name="pricePerNight"]').fill('1000');
 	await page.selectOption('select[name="starRating"]', '5');
@@ -52,14 +53,15 @@ test('should alow user to list a property', async ({ page }) => {
 test('should display users properties', async ({ page }) => {
 	await page.goto(`${UI_URL}my-property`);
 
-	await expect(page.getByRole('heading', {name:'Kit Kat House'})).toBeVisible();
-	await expect(page.getByText('Kit Kat description for testing property listing')).toBeVisible();
-	await expect(page.getByText('Kit Kat City')).toBeVisible();
-	await expect(page.getByText('1000€ per night')).toBeVisible();
-	await expect(page.getByText('Rural Hotel')).toBeVisible();
-	await expect(page.getByText('4 adults')).toBeVisible();
-	await expect(page.getByText('1 children')).toBeVisible();
-	await expect(page.getByText('5 Star')).toBeVisible();
+	await expect(page.getByRole('heading', {name:'Kit Kat House'}).first()).toBeVisible();
+	await expect(page.getByText('Kit Kat description for testing property listing').first()).toBeVisible();
+	await expect(page.getByText('Kit Kat Region').first()).toBeVisible();
+	await expect(page.getByText('Kit Kat County').first()).toBeVisible();
+	await expect(page.getByText('1000€ per night').first()).toBeVisible();
+	await expect(page.getByText('Rural Hotel').first()).toBeVisible();
+	await expect(page.getByText('4 adults').first()).toBeVisible();
+	await expect(page.getByText('1 children').first()).toBeVisible();
+	await expect(page.getByText('5 Star').first()).toBeVisible();
 
 	await expect(page.getByRole("link", { name: "List Property" })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'Edit Property' }).first()).toBeVisible();

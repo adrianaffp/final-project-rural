@@ -27,7 +27,9 @@ const MyBookings = () => {
 						{/* info */}
 						<div className='px-9 pt-9 pb-5 lg:pb-0 flex flex-col'>
 							<h4 className='font-syne text-3xl'>{property.name}</h4>
-							<h6 className='text-sm mb-5'>{property.city}</h6>
+							<h6 className='text-sm mb-5'>
+								{property.county}, {property.region}
+							</h6>
 
 							{/* bookings */}
 							<div className='overflow-y-auto max-h-[200px] lg:max-h-[240px]'>

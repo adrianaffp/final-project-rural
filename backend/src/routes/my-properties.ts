@@ -13,6 +13,7 @@ const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 // get all properties
 router.get('/', verifyToken, getAllProperties);
 
+//* api/my-properties/:id
 // get a property
 router.get('/:id', verifyToken, getProperty);
 
@@ -22,7 +23,8 @@ router.post(
 	verifyToken,
 	[
 		body('name').notEmpty().withMessage('Name is required'),
-		body('city').notEmpty().withMessage('City is required'),
+		body('region').notEmpty().withMessage('Region is required'),
+		body('county').notEmpty().withMessage('County is required'),
 		body('description').notEmpty().withMessage('Description is required'),
 		body('type').notEmpty().withMessage('Type is required'),
 		body('facilities').notEmpty().isArray().withMessage('Facilities are required'),

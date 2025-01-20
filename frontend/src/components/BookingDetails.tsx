@@ -19,7 +19,7 @@ const BookingDetails = ({ checkIn, checkOut, adultCount, childCount, numOfNights
 			{/* destination */}
 			<div className='border-b py-2'>
 				<h4 className='font-semibold text-sm mb-1'>Destination</h4>
-				<div className='font-light'>{`${property.name}, ${property.city}`}</div>
+				<div className='font-light'>{`${property.name}, ${property.county}`}</div>
 			</div>
 
 			{/* check in & out dates */}

@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+
 import { PropertyFormData } from './ManagePropertyForm';
 
 const DetailsSection = () => {
@@ -9,20 +10,25 @@ const DetailsSection = () => {
 
 	return (
 		<div className='flex flex-col gap-4'>
-			<h1 className='text-3xl font-syne font-semibold mb-4'>List your property</h1>
-
-			
 			<label className='text-slate-700 text-sm font-semibold flex-1'>
 				Name
 				<input type='text' className='border border-slate-400 w-full rounded-md px-3 py-2 font-light' {...register('name', { required: 'Name is required' })} />
 				{errors.name && <span className='text-red-500 text-xs'>{errors.name.message}</span>}
 			</label>
 
-			<label className='text-slate-700 text-sm font-semibold flex-1'>
-				City
-				<input type='text' className='border border-slate-400 w-full rounded-md px-3 py-2 font-light' {...register('city', { required: 'City is required' })} />
-				{errors.city && <span className='text-red-500 text-xs'>{errors.city.message}</span>}
-			</label>
+			<div className='flex gap-4'>
+				<label className='text-slate-700 text-sm font-semibold flex-1'>
+					Region
+					<input type='text' className='border border-slate-400 w-full rounded-md px-3 py-2 font-light' {...register('region', { required: 'Region is required' })} />
+					{errors.region && <span className='text-red-500 text-xs'>{errors.region.message}</span>}
+				</label>
+
+				<label className='text-slate-700 text-sm font-semibold flex-1'>
+					County
+					<input type='text' className='border border-slate-400 w-full rounded-md px-3 py-2 font-light' {...register('county', { required: 'County is required' })} />
+					{errors.county && <span className='text-red-500 text-xs'>{errors.county.message}</span>}
+				</label>
+			</div>
 
 			<label className='text-slate-700 text-sm font-semibold flex-1'>
 				Description
