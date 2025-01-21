@@ -2,22 +2,19 @@ import express from 'express';
 import multer from 'multer';
 import verifyToken from '../middleware/auth';
 import { body } from 'express-validator';
-import { getAllProperties, addProperty, getProperty, updateProperty } from '../controllers/my-properties-controller';
+import { getAllProperties, addProperty, getProperty, updateProperty, deleteProperty } from '../controllers/my-properties-controller';
 
 const router = express.Router();
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
-//* api/my-properties
-// get all properties
+// api/my-properties
+
 router.get('/', verifyToken, getAllProperties);
 
-//* api/my-properties/:id
-// get a property
 router.get('/:id', verifyToken, getProperty);
 
-// add property
 router.post(
 	'/',
 	verifyToken,
@@ -34,7 +31,8 @@ router.post(
 	addProperty,
 );
 
-// update property
 router.put('/:propertyId', verifyToken, upload.array('imageFiles'), updateProperty);
+
+router.delete('/:propertyId', verifyToken, deleteProperty);
 
 export default router;

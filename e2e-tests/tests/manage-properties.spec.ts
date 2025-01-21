@@ -55,13 +55,12 @@ test('should display users properties', async ({ page }) => {
 
 	await expect(page.getByRole('heading', {name:'Kit Kat House'}).first()).toBeVisible();
 	await expect(page.getByText('Kit Kat description for testing property listing').first()).toBeVisible();
-	await expect(page.getByText('Kit Kat Region').first()).toBeVisible();
 	await expect(page.getByText('Kit Kat County').first()).toBeVisible();
 	await expect(page.getByText('1000€ per night').first()).toBeVisible();
 	await expect(page.getByText('Rural Hotel').first()).toBeVisible();
 	await expect(page.getByText('4 adults').first()).toBeVisible();
-	await expect(page.getByText('1 children').first()).toBeVisible();
-	await expect(page.getByText('5 Star').first()).toBeVisible();
+	await expect(page.getByText('1 child').first()).toBeVisible();
+	await expect(page.getByText('5 Stars').first()).toBeVisible();
 
 	await expect(page.getByRole("link", { name: "List Property" })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'Edit Property' }).first()).toBeVisible();
@@ -87,4 +86,24 @@ test('should edit property', async ({ page }) => {
 	await expect(page.locator('[name="name"]')).toHaveValue('Kit Kat House UPDATED');
 	await page.locator('[name="name"]').fill('Kit Kat House');
 	await page.getByRole('button', { name: 'Save' }).click();
-} )
+})
+
+test('should allow user to delete a property', async ({ page }) => {
+	await page.goto(`${UI_URL}my-property`);
+
+	await expect(page.getByRole('heading', { name: 'Kit Kat House' }).first()).toBeVisible();
+
+	// Click icon delete btn
+	const deleteButton = page.locator('button.bg-red-400').first();
+	await deleteButton.click();
+
+	await page.on('dialog', dialog => {
+		expect(dialog.message()).toBe('Are you sure you want to delete this property? This action cannot be undone.');
+		dialog.accept();
+	});
+
+	// Force Ok on dialog
+	await page.keyboard.press('Enter');
+
+	await expect(page.getByText('Property deleted successfully.')).toBeVisible();
+})

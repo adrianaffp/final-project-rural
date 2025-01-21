@@ -8,6 +8,7 @@ export const getAllProperties = async (req: Request, res: Response) => {
 		const property = await Property.find({ userId: req.userId });
 		res.json(property);
 	} catch (error) {
+		console.log('Error getting properties:', error);
 		res.status(500).json({ message: 'Internal server error' });
 	}
 };
@@ -23,6 +24,7 @@ export const getProperty = async (req: Request, res: Response) => {
 
 		res.json(property);
 	} catch (error) {
+		console.log('Error getting property:', error);
 		res.status(500).json({ message: 'Internal server error' });
 	}
 };
@@ -76,6 +78,28 @@ export const updateProperty = async (req: Request, res: Response) => {
 
 		res.status(201).json(property);
 	} catch (error) {
+		console.log('Error updating property:', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+export const deleteProperty = async (req: Request, res: Response) => {
+	const id = req.params.propertyId;
+
+	try {
+		const property = await Property.findOneAndDelete({
+			_id: id,
+			userId: req.userId,
+		});
+
+		if (!property) {
+			res.status(404).json({ message: 'Property not found' });
+			return;
+		}
+
+		res.status(200).json({ message: 'Property deleted successfully', property });
+	} catch (error) {
+		console.log('Error deleting property:', error);
 		res.status(500).json({ message: 'Internal server error' });
 	}
 };

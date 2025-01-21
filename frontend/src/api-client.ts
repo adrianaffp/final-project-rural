@@ -129,6 +129,21 @@ export const updateMyPropertyById = async (propertyFormData: FormData) => {
 	return response.json();
 };
 
+export const deleteMyPropertyById = async (propertyId: string): Promise<void> => {
+	const response = await fetch(`${API_BASE_URL}/api/my-properties/${propertyId}`, {
+		method: 'DELETE',
+		credentials: 'include',
+	});
+
+	if (!response.ok) {
+		const errorBody = await response.json();
+		console.log('Error body:', errorBody);
+		throw new Error('Failed to delete property');
+	}
+
+	return response.json();
+};
+
 export type SearchParams = {
 	destination?: string;
 	checkIn?: string;
