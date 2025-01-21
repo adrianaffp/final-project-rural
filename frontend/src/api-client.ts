@@ -170,6 +170,16 @@ export const searchProperty = async (searchParams: SearchParams): Promise<Proper
 	return response.json();
 };
 
+export const getProperties = async (): Promise<PropertyType[]> => {
+	const response = await fetch(`${API_BASE_URL}/api/properties`);
+
+	if (!response.ok) {
+		throw new Error('Failed to get properties');
+	}
+
+	return response.json();
+};
+
 export const getPropertyById = async (propertyId: string): Promise<PropertyType> => {
 	const response = await fetch(`${API_BASE_URL}/api/properties/${propertyId}`);
 

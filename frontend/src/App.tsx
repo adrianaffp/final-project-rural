@@ -14,6 +14,7 @@ import Search from './pages/Search';
 import PropertyDetail from './pages/PropertyDetail';
 import Booking from './pages/Booking';
 import MyBookings from './pages/MyBookings';
+import HomePage from './pages/HomePage';
 
 import Hero from './components/Hero';
 
@@ -29,7 +30,7 @@ function App() {
 						element={
 							<Layout>
 								<Hero />
-								<p>Home Page</p>
+								<HomePage/>
 							</Layout>
 						}
 					/>

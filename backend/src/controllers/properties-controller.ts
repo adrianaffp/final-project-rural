@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import Property from '../models/property';
-import { BookingType, PropertySearchResult } from '../shared/types';
 import { validationResult } from 'express-validator';
 import Stripe from 'stripe';
+
+import Property from '../models/property';
+import { BookingType, PropertySearchResult } from '../shared/types';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -43,6 +44,17 @@ export const getSearchProperties = async (req: Request, res: Response) => {
 		};
 
 		res.json(response);
+	} catch (error) {
+		console.log('error', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+export const getProperties = async (req: Request, res: Response) => {
+	try {
+		const properties = await Property.find().sort('-updatedAt');
+
+		res.json(properties);
 	} catch (error) {
 		console.log('error', error);
 		res.status(500).json({ message: 'Internal server error' });
