@@ -1,5 +1,11 @@
 import { Link } from 'react-router-dom';
+
+import { useAppContext } from '../contexts/AppContext';
+
 import { PropertyType } from '../../../backend/src/shared/types';
+
+import FavoritesToggle from './FavoritesToggle';
+
 import { HiOutlineStar } from 'react-icons/hi2';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 
@@ -8,6 +14,8 @@ type Props = {
 };
 
 const SearchResultsCard = ({ property }: Props) => {
+	const { isLoggedIn } = useAppContext();
+
 	return (
 		<div className='grid grid-cols-1 lg:grid-cols-[2fr_3fr] border border-slate-300 rounded-lg p-8 gap-5'>
 			{/* img */}
@@ -18,18 +26,23 @@ const SearchResultsCard = ({ property }: Props) => {
 			{/* content */}
 			<div className='grid grid-rows-[1fr_2fr_1fr]'>
 				{/* title section */}
-				<div>
-					<div className='flex items-center'>
-						<span className='flex'>
-							{Array.from({ length: property.starRating }).map(() => (
-								<HiOutlineStar className='fill-yellow-400 text-yellow-400' />
-							))}
-						</span>
-						<span className='text-slate-600 ml-2 text-sm font-semibold'>{property.type}</span>
+				<div className='flex items-center justify-between'>
+					<div>
+						<div className='flex items-center'>
+							<span className='flex'>
+								{Array.from({ length: property.starRating }).map(() => (
+									<HiOutlineStar className='fill-yellow-400 text-yellow-400' />
+								))}
+							</span>
+							<span className='text-slate-600 ml-2 text-sm font-semibold'>{property.type}</span>
+						</div>
+						<Link to={`/detail/${property._id}`} className='font-syne text-2xl font-semibold cursor-pointer'>
+							{property.name}
+						</Link>
 					</div>
-					<Link to={`/detail/${property._id}`} className='font-syne text-2xl font-semibold cursor-pointer'>
-						{property.name}
-					</Link>
+
+					{/* favs toggle */}
+					{isLoggedIn && <FavoritesToggle propertyId={property._id} />}
 				</div>
 
 				{/* description & facilities section */}

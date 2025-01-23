@@ -15,6 +15,7 @@ import PropertyDetail from './pages/PropertyDetail';
 import Booking from './pages/Booking';
 import MyBookings from './pages/MyBookings';
 import HomePage from './pages/HomePage';
+import MyFavorites from './pages/MyFavorites';
 
 import Hero from './components/Hero';
 
@@ -30,7 +31,7 @@ function App() {
 						element={
 							<Layout>
 								<Hero />
-								<HomePage/>
+								<HomePage />
 							</Layout>
 						}
 					/>
@@ -66,8 +67,17 @@ function App() {
 							</Single>
 						}
 					/>
+
 					{isLoggedIn && (
 						<>
+							<Route
+								path='/my-favorites'
+								element={
+									<Single>
+										<MyFavorites />
+									</Single>
+								}
+							/>
 							<Route
 								path='/my-property'
 								element={

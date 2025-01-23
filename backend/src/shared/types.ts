@@ -4,6 +4,7 @@ export type UserType = {
 	password: string;
 	firstName: string;
 	lastName: string;
+	favorites: string[];
 };
 
 export type PropertyType = {

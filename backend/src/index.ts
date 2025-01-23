@@ -11,6 +11,7 @@ import userRoutes from './routes/users';
 import propertiesRoutes from './routes/properties';
 import myPropertiesRoutes from './routes/my-properties';
 import myBookingRoutes from './routes/my-bookings';
+import myFavoritesRoutes from './routes/my-favorites';
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -42,6 +43,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/properties', propertiesRoutes);
 app.use('/api/my-properties', myPropertiesRoutes);
 app.use('/api/my-bookings', myBookingRoutes);
+app.use('/api/my-favorites', myFavoritesRoutes);
 
 // for protective routes
 app.get('*', (req: Request, res: Response) => {

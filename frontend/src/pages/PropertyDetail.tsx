@@ -1,30 +1,46 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
+
 import * as apiClient from '../api-client';
-import { HiOutlineStar } from 'react-icons/hi2';
+
+import { useAppContext } from '../contexts/AppContext';
+
 import BookInfoForm from '../forms/bookInfoForm/BookInfoForm';
+import FavoritesToggle from '../components/FavoritesToggle';
+import LoadingSpinner from '../components/LoadingSpinner';
+
+import { HiOutlineStar } from 'react-icons/hi2';
 
 const PropertyDetail = () => {
 	const { propertyId } = useParams();
+	const { isLoggedIn } = useAppContext();
 
-	const { data: property } = useQuery('getPropertyById', () => apiClient.getPropertyById(propertyId as string), {
+	const { data: property, isLoading } = useQuery('getPropertyById', () => apiClient.getPropertyById(propertyId as string), {
 		enabled: !!propertyId,
 	});
 
-	if (!property) {
-		return <div>Loading...</div>;
+	if (!property || isLoading) {
+		return <LoadingSpinner />;
 	}
 
 	return (
 		<div className='space-y-6 mt-5 mb-5'>
 			{/* title */}
-			<div>
-				<span className='flex'>
-					{Array.from({ length: property.starRating }).map(() => (
-						<HiOutlineStar className='fill-yellow-400 text-yellow-400' />
-					))}
-				</span>
-				<h1 className='text-3xl font-syne font-semibold'>{property.name}</h1>
+			<div className='flex items-center justify-between'>
+				<div>
+					<span className='flex'>
+						{Array.from({ length: property.starRating }).map(() => (
+							<HiOutlineStar className='fill-yellow-400 text-yellow-400' />
+						))}
+					</span>
+					<h1 className='text-3xl font-syne font-semibold'>{property.name}</h1>
+					<h5 className='text-sm text-slate-600'>
+						{property.region}, {property.county}
+					</h5>
+				</div>
+
+				{/* favs toggle */}
+				{isLoggedIn && <FavoritesToggle propertyId={property._id} />}
 			</div>
 
 			{/* img grid */}
@@ -44,7 +60,7 @@ const PropertyDetail = () => {
 			</div>
 
 			{/* description and bookingInfo */}
-			<div className='grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-5'>
+			<div className='grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12'>
 				<div className='whitespace-pre-line'>{property.description}</div>
 				<div className='h-fit'>
 					{' '}

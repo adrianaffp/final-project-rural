@@ -22,6 +22,12 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	favorites: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Property',
+		},
+	],
 });
 
 userSchema.pre('save', async function (next) {

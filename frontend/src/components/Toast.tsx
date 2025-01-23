@@ -10,14 +10,14 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			onClose();
-		}, 4000);
+		}, 3000);
 
 		return () => {
 			clearTimeout(timer);
 		};
 	}, [onClose]);
 
-	const styles = type === 'SUCCESS' ? 'fixed top-4 right-4 z-50 p-4 rounded-full bg-slate-600 text-green-200' : 'fixed top-4 right-4 z-50 p-4 rounded-full bg-slate-600 text-red-200';
+	const styles = type === 'SUCCESS' ? 'fixed top-4 right-4 z-50 px-5 py-4 rounded-full bg-green-100 text-green-500' : 'fixed top-4 right-4 z-50 p-4 rounded-full bg-red-100 text-red-500';
 
 	return (
 		<div className={styles}>

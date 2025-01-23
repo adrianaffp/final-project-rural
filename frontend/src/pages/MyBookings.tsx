@@ -1,12 +1,31 @@
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
+
 import * as apiClient from '../api-client';
+
+import LoadingSpinner from '../components/LoadingSpinner';
+
 import { IoBedOutline, IoCalendarOutline } from 'react-icons/io5';
 
 const MyBookings = () => {
-	const { data: properties } = useQuery('getMyBookings', apiClient.getMyBookings);
+	const { data: properties, isLoading } = useQuery('getMyBookings', apiClient.getMyBookings);
 
 	if (!properties || properties.length === 0) {
-		return <div>No properties found</div>;
+		return (
+			<div className='flex justify-center items-center mt-10 text-center'>
+				<span>
+					No bookings found. <br /> Find very good options for your stay{' '}
+					<Link to='/search' className='font-semibold '>
+						here
+					</Link>
+					!
+				</span>
+			</div>
+		);
+	}
+
+	if (isLoading) {
+		<LoadingSpinner/>
 	}
 
 	return (

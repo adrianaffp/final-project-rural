@@ -6,6 +6,8 @@ import { SignInFormData } from './pages/SignIn';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
+/* --------- */
+/* Users */
 export const register = async (formData: RegisterFormData) => {
 	const response = await fetch(`${API_BASE_URL}/api/users/register`, {
 		method: 'POST',
@@ -77,6 +79,8 @@ export const signOut = async () => {
 	}
 };
 
+/* --------- */
+/* My-Properties */
 export const getMyProperties = async (): Promise<PropertyType[]> => {
 	const response = await fetch(`${API_BASE_URL}/api/my-properties`, {
 		credentials: 'include',
@@ -144,6 +148,8 @@ export const deleteMyPropertyById = async (propertyId: string): Promise<void> =>
 	return response.json();
 };
 
+/* --------- */
+/* Search */
 export type SearchParams = {
 	destination?: string;
 	checkIn?: string;
@@ -205,6 +211,8 @@ export const getPropertyById = async (propertyId: string): Promise<PropertyType>
 	return response.json();
 };
 
+/* --------- */
+/* Bookings */
 export const createPaymentIntent = async (propertyId: string, numOfNights: string): Promise<PaymentIntentResponse> => {
 	const response = await fetch(`${API_BASE_URL}/api/properties/${propertyId}/bookings/payment-intent`, {
 		method: 'POST',
@@ -244,6 +252,54 @@ export const getMyBookings = async (): Promise<PropertyType[]> => {
 
 	if (!response.ok) {
 		throw new Error('Failed to get bookings');
+	}
+
+	return response.json();
+};
+
+/* --------- */
+/* My-Favorites */
+export const getFavorites = async (): Promise<PropertyType[]> => {
+	const response = await fetch(`${API_BASE_URL}/api/my-favorites`, {
+		credentials: 'include',
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to get favorites');
+	}
+
+	return response.json();
+};
+
+export const addFavorite = async (propertyId: string) => {
+	const response = await fetch(`${API_BASE_URL}/api/my-favorites/${propertyId}`, {
+		method: 'POST',
+		credentials: 'include',
+	});
+
+	if (!response.ok) {
+		let errorMessage = 'Failed to add favorite';
+		try {
+			const errorResponse = await response.json();
+			errorMessage = errorResponse.message || errorMessage;
+		} catch {
+			// If JSON parsing fails, fallback to status text
+			errorMessage = response.statusText || errorMessage;
+		}
+		throw new Error(errorMessage);
+	}
+
+	return response.json();
+};
+
+export const removeFavorite = async (propertyId: string) => {
+	const response = await fetch(`${API_BASE_URL}/api/my-favorites/${propertyId}`, {
+		method: 'DELETE',
+		credentials: 'include',
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to remove favorite');
 	}
 
 	return response.json();
