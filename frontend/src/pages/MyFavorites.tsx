@@ -40,7 +40,7 @@ const MyFavorites = () => {
 			</div>
 
 			{/* display fav properties */}
-			<div className='grid grid-cols-1 lg:grid-cols-3 gap-5'>
+			<div className='grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12 md:mb-20'>
 				{properties.map(property => (
 					<DestinationCard property={property} key={property._id} />
 				))}

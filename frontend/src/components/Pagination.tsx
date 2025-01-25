@@ -13,9 +13,9 @@ const Pagination = ({ page, pages, onPageChange }: Props) => {
 
 	return (
 		<div className='flex justify-center'>
-			<ul className='flex border border-slate-300 rounded-2xl p-1 gap-1 font-light text-slate-500'>
+			<ul className='flex p-1 gap-1 font-light text-slate-500'>
 				{pageNumbers.map(number => (
-					<li className={`px-2 py-1 ${number === page ? 'bg-slate-300 rounded-full p-1 text-slate-800' : ''}`} key={number}>
+					<li className={`px-2 py-1 ${number === page ? 'bg-slate-800 rounded-xl p-1 text-slate-100' : ''}`} key={number}>
 						<button onClick={() => onPageChange(number)}>{number}</button>
 					</li>
 				))}

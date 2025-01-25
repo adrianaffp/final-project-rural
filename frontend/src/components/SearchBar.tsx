@@ -1,9 +1,11 @@
 import { FormEvent, useState } from 'react';
-import { useSearchContext } from '../contexts/SearchContext';
-import { IoSearchOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useNavigate } from 'react-router-dom';
+
+import { useSearchContext } from '../contexts/SearchContext';
+
+import { IoSearchOutline } from 'react-icons/io5';
 import { IoCalendarOutline } from 'react-icons/io5';
 
 const SearchBar = () => {
@@ -29,7 +31,10 @@ const SearchBar = () => {
 	maxDate.setFullYear(maxDate.getFullYear() + 1);
 
 	return (
-		<form onSubmit={handleSubmit} className='container mx-auto bg-white shadow-md border border-slate-100 rounded-md lg:rounded-full grid grid-cols-2 lg:grid-cols-5 gap-4 px-3 py-2 mt-5'>
+		<form
+			onSubmit={handleSubmit}
+			className='container mx-auto bg-white shadow-md border border-slate-100 rounded-md lg:rounded-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 px-3 py-2 mt-5'
+		>
 			{/* destination */}
 			<div className='flex flex-row items-center flex-1 gap-2 px-4 py-2 rounded-full bg-slate-100'>
 				<IoSearchOutline className='w-5 h-5 text-slate-700' />
@@ -70,13 +75,13 @@ const SearchBar = () => {
 
 			{/* check in & out datepicker */}
 			<div className='flex flex-row items-center gap-4 px-5 py-2 rounded-full bg-slate-100'>
-				<span>
+				<span className='flex-shrink-0'>
 					<IoCalendarOutline className='w-5 h-5 text-slate-700' />
 				</span>
 
 				<DatePicker
 					placeholderText='Check-in'
-					className='bg-slate-100 font-syne text-md font-light text-slate-700 focus:outline-none'
+					className='bg-slate-100 font-syne text-md font-light text-slate-700 focus:outline-none max-w-[100px]'
 					dateFormat={'dd/MM/yyyy'}
 					selected={checkIn}
 					onChange={date => setCheckIn(date as Date)}
@@ -95,7 +100,7 @@ const SearchBar = () => {
 
 				<DatePicker
 					placeholderText='Check-out'
-					className='bg-slate-100 font-syne text-md font-light text-slate-700 focus:outline-none'
+					className='bg-slate-100 font-syne text-md font-light text-slate-700 focus:outline-none max-w-[100px]'
 					dateFormat={'dd/MM/yyyy'}
 					selected={checkOut}
 					onChange={date => setCheckOut(date as Date)}

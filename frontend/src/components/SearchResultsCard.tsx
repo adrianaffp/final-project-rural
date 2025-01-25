@@ -34,9 +34,9 @@ const SearchResultsCard = ({ property }: Props) => {
 									<HiOutlineStar className='fill-yellow-400 text-yellow-400' />
 								))}
 							</span>
-							<span className='text-slate-600 ml-2 text-sm font-semibold'>{property.type}</span>
+							<span className='text-slate-600 ml-2 text-xs md:text-sm font-semibold'>{property.type}</span>
 						</div>
-						<Link to={`/detail/${property._id}`} className='font-syne text-2xl font-semibold cursor-pointer'>
+						<Link to={`/detail/${property._id}`} className='font-syne text-xl md:text-2xl font-semibold cursor-pointer'>
 							{property.name}
 						</Link>
 					</div>
@@ -47,7 +47,7 @@ const SearchResultsCard = ({ property }: Props) => {
 
 				{/* description & facilities section */}
 				<div className='space-y-3'>
-					<div className='line-clamp-4 overflow-hidden max-h-[6rem]'>{property.description}</div>
+					<div className='line-clamp-4 text-sm  md:text-md overflow-hidden max-h-[6rem]'>{property.description}</div>
 
 					<div className='flex gap-1 items-center'>
 						{/* display 3 facilities */}
@@ -62,7 +62,7 @@ const SearchResultsCard = ({ property }: Props) => {
 
 				{/* price & details btn section */}
 				<div className='flex items-center justify-end gap-4'>
-					<span className='font-syne text-2xl font-light'>{property.pricePerNight} € per night</span>
+					<span className='font-syne text-xl md:text-2xl font-light'>{property.pricePerNight} € per night</span>
 					<Link
 						to={`/detail/${property._id}`}
 						className='flex items-center gap-2 text-slate-800 bg-white border border-slate-300 hover:bg-slate-100 focus:outline-none focus:ring-4 focus:ring-gray-300 font-light rounded-full text-md px-4 py-2.5 disabled:opacity-50'

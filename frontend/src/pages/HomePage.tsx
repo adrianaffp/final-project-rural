@@ -1,9 +1,11 @@
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
-import { IoBedOutline } from 'react-icons/io5';
 
 import * as apiClient from '../api-client';
+
 import DestinationCard from '../components/DestinationCard';
+
+import { IoBedOutline } from 'react-icons/io5';
 
 const HomePage = () => {
 	const { data: properties } = useQuery('getProperties', () => apiClient.getProperties());
@@ -81,12 +83,12 @@ const HomePage = () => {
 
 				<Link
 					to='/search'
-					className='inline-flex items-center bg-slate-900 text-white font-light text-md hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-full px-4 py-2.5 disabled:opacity-50'
+					className='inline-flex items-center bg-slate-900 text-white font-light text-md hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-full px-2 py-2.5'
 				>
 					<span className='bg-white text-slate-900 rounded-full p-2'>
 						<IoBedOutline />
 					</span>
-					<span className='ml-2 mr-2 font-light'>Explore properties</span>
+					<span className='ml-3 pr-4 font-light'>Explore Properties</span>
 				</Link>
 			</section>
 		</div>

@@ -10,6 +10,10 @@ import { IoBedOutline, IoCalendarOutline } from 'react-icons/io5';
 const MyBookings = () => {
 	const { data: properties, isLoading } = useQuery('getMyBookings', apiClient.getMyBookings);
 
+	if (isLoading) {
+		return <LoadingSpinner />;
+	}
+
 	if (!properties || properties.length === 0) {
 		return (
 			<div className='flex justify-center items-center mt-10 text-center'>
@@ -24,15 +28,11 @@ const MyBookings = () => {
 		);
 	}
 
-	if (isLoading) {
-		<LoadingSpinner/>
-	}
-
 	return (
 		<div>
 			<div className='flex flex-col md:flex-row justify-between md:items-center mb-10'>
 				<h2 className='font-syne text-3xl lg:text-5xl font-semibold'>My Bookings</h2>
-				<h4 className='font-syne text-sm lg:text-base lg:max-w-[400px] text-slate-600 lg:text-end lg:leading-tight'>Explore the wonders of Portugal and create memories that will last a lifetime.</h4>
+				<h4 className='font-syne text-sm lg:text-base lg:max-w-[400px] text-slate-600 lg:leading-tight'>Explore the wonders of Portugal and create memories that will last a lifetime.</h4>
 			</div>
 
 			<div className='space-y-7 lg:space-y-12 '>

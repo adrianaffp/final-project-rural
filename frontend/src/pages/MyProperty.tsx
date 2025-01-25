@@ -1,20 +1,25 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+
 import * as apiClient from '../api-client';
+
+import { useAppContext } from '../contexts/AppContext';
+
+import LoadingSpinner from '../components/LoadingSpinner';
+
 import { SlLocationPin } from 'react-icons/sl';
 import { PiHouse } from 'react-icons/pi';
 import { MdOutlineEuro } from 'react-icons/md';
 import { HiOutlineStar } from 'react-icons/hi2';
 import { LiaBedSolid } from 'react-icons/lia';
 import { GoPlus, GoTrash } from 'react-icons/go';
-import { useAppContext } from '../contexts/AppContext';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 
 const MyProperty = () => {
 	const queryClient = useQueryClient();
 	const { showToast } = useAppContext();
 
-	const { data: propertyData } = useQuery('getMyProperties', apiClient.getMyProperties, {
+	const { data: propertyData, isLoading: isLoadingProperties } = useQuery('getMyProperties', apiClient.getMyProperties, {
 		onError: () => {},
 	});
 
@@ -34,8 +39,22 @@ const MyProperty = () => {
 		}
 	};
 
-	if (!propertyData) {
-		return <span>No properties found</span>;
+	if (isLoadingProperties) {
+		return <LoadingSpinner />;
+	}
+
+	if (!propertyData || propertyData.length === 0) {
+		return (
+			<div className='flex justify-center items-center mt-10 text-center'>
+				<span>
+					No properties found. <br /> Find very good options for your stay{' '}
+					<Link to='/search' className='font-semibold '>
+						here
+					</Link>
+					!
+				</span>
+			</div>
+		);
 	}
 
 	return (

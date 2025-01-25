@@ -13,6 +13,7 @@ const TypesSection = () => {
 			<div className='grid grid-cols-2 gap-5 md:grid-cols-4'>
 				{propertyTypes.map(type => (
 					<label
+						key={type}
 						className={
 							typeWatch === type
 								? 'cursor-pointer text-sm font-light text-slate-700 bg-slate-200 border border-slate-400 rounded-full px-3 py-2 text-center'
