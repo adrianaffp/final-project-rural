@@ -28,7 +28,7 @@ test('should alow user to list a property', async ({ page }) => {
 	await page.locator('[name="name"]').fill('Kit Kat House');
 	await page.locator('[name="region"]').fill('Kit Kat Region');
 	await page.locator('[name="county"]').fill('Kit Kat County');
-	await page.locator('[name="description"]').fill('Kit Kat description for testing property listing');
+	await page.locator('textarea[name="description"]').fill('Kit Kat description for testing property listing');
 	await page.locator('[name="pricePerNight"]').fill('1000');
 	await page.selectOption('select[name="starRating"]', '5');
 

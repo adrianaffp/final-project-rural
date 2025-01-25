@@ -29,12 +29,12 @@ test('should allow user to toggle favorite property', async ({ page }) => {
 	await page.getByRole('button', { name: 'Search Property' }).click();
 
 	// Click icon btn - add to favorites
-	await page.locator('button[aria-label="Favorites Toggle"]').click({ force: true });
+	await page.locator('button[aria-label="Favorites Toggle"]').first().click({ force: true });
 
 	await expect(page.getByText('Added to favorites')).toBeVisible();
 
 	// Click icon btn - remove from favorites
-	await page.locator('button[aria-label="Favorites Toggle"]').click({ force: true });
+	await page.locator('button[aria-label="Favorites Toggle"]').first().click({ force: true });
 
 	await expect(page.getByText('Removed from favorites')).toBeVisible();
 });
@@ -47,7 +47,7 @@ test('should display users favorite properties', async ({ page }) => {
 	await page.getByPlaceholder('Where to?').fill('Kit Kat');
 	await page.getByRole('button', { name: 'Search Property' }).click();
 
-	await page.locator('button[aria-label="Favorites Toggle"]').click({ force: true });
+	await page.locator('button[aria-label="Favorites Toggle"]').first().click({ force: true });
 	await expect(page.getByText('Added to favorites')).toBeVisible();
 
 	// Go to favorites page
@@ -65,6 +65,6 @@ test('should display users favorite properties', async ({ page }) => {
 	await page.getByPlaceholder('Where to?').fill('Kit Kat');
 	await page.getByRole('button', { name: 'Search Property' }).click();
 
-	await page.locator('button[aria-label="Favorites Toggle"]').click({ force: true });
+	await page.locator('button[aria-label="Favorites Toggle"]').first().click({ force: true });
 	await expect(page.getByText('Removed from favorites')).toBeVisible();
 });

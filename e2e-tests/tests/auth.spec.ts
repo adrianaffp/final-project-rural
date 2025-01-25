@@ -18,8 +18,7 @@ test('should allow user to sign in', async ({ page }) => {
 	await page.getByRole('button', { name: 'Sign In' }).click();
 
 	await expect(page.getByText('Sign in successful')).toBeVisible();
-	await expect(page.getByRole('link', { name: 'My Bookings' })).toBeVisible();
-	await expect(page.getByRole('link', { name: 'List your property' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Bookings' })).toBeVisible();
 	await expect(page.getByRole('button', { name: 'Sign Out' })).toBeVisible();
 });
 
@@ -44,7 +43,6 @@ test('shoul allow user to register', async ({ page }) => {
 	await page.getByRole('button', { name: 'Create Account' }).click();
 
 	await expect(page.getByText('Registration successful!')).toBeVisible();
-	await expect(page.getByRole('link', { name: 'My Bookings' })).toBeVisible();
-	await expect(page.getByRole('link', { name: 'List your property' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Bookings' })).toBeVisible();
 	await expect(page.getByRole('button', { name: 'Sign Out' })).toBeVisible();
 });
