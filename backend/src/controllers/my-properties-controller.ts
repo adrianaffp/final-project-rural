@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
+
 import Property from '../models/property';
 import { PropertyType } from '../shared/types';
+
 import cloudinary from 'cloudinary';
 
 export const getAllProperties = async (req: Request, res: Response) => {
@@ -95,6 +97,26 @@ export const deleteProperty = async (req: Request, res: Response) => {
 		if (!property) {
 			res.status(404).json({ message: 'Property not found' });
 			return;
+		}
+
+		// delete from cloudinary
+		const imageUrls = property.imageUrls;
+
+		const publicIds = imageUrls
+			.map(url => {
+				const matches = url.match(/\/([^\/]+)\.(jpg|jpeg|png|gif)$/);
+				return matches ? matches[1] : null;
+			})
+			.filter(Boolean);
+
+		if (publicIds.length > 0) {
+			await Promise.all(
+				publicIds.map(publicId => {
+					if (typeof publicId === 'string') {
+						return cloudinary.v2.uploader.destroy(publicId);
+					}
+				}),
+			);
 		}
 
 		res.status(200).json({ message: 'Property deleted successfully', property });
