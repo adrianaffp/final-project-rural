@@ -1,8 +1,11 @@
-import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from 'react-query';
-import * as apiClient from '../api-client';
-import { useAppContext } from '../contexts/AppContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
+import { useForm } from 'react-hook-form';
+
+import * as apiClient from '../api-client';
+
+import { useAppContext } from '../contexts/AppContext';
+
 import img from '../assets/aljezur.png';
 
 export type RegisterFormData = {
@@ -14,38 +17,38 @@ export type RegisterFormData = {
 };
 
 const Register = () => {
-    const queryClient = useQueryClient();
-    const navigate = useNavigate();
+	const queryClient = useQueryClient();
+	const navigate = useNavigate();
 
-    const { showToast } = useAppContext();
+	const { showToast } = useAppContext();
 
 	const {
 		register,
 		watch,
 		handleSubmit,
 		formState: { errors },
-    } = useForm<RegisterFormData>();
-    
-    const mutation = useMutation(apiClient.register, {
-        onSuccess: async () => {
-            showToast({ message: 'Registration successful!', type: 'SUCCESS' });
-            await queryClient.invalidateQueries('validateToken');
-            navigate('/');
-        },
-        onError: (error: Error) => {
-            showToast({ message: error.message, type: 'ERROR' });
-        }
-    });
+	} = useForm<RegisterFormData>();
+
+	const mutation = useMutation(apiClient.register, {
+		onSuccess: async () => {
+			showToast({ message: 'Registration successful!', type: 'SUCCESS' });
+			await queryClient.invalidateQueries('validateToken');
+			navigate('/');
+		},
+		onError: (error: Error) => {
+			showToast({ message: error.message, type: 'ERROR' });
+		},
+	});
 
 	const onSubmit = handleSubmit(data => {
 		mutation.mutate(data);
 	});
 
 	return (
-		<div className='flex flex-col-reverse md:flex-row justify-between mt-4 md:mt-10'>
+		<div className='flex flex-col-reverse md:flex-row justify-between mt-4 md:mt-10 md:pb-24'>
 			<form onSubmit={onSubmit} className='flex flex-col gap-5 flex-1 md:mr-10'>
 				<h2 className='text-3xl font-syne font-semibold'>Welcome to rural</h2>
-				<p className='text-slate-700 text-md'>Create an account to get started</p>
+				<p className='text-slate-700 text-md -mt-3'>Create an account to get started</p>
 
 				<div className='flex flex-col md:flex-row gap-5'>
 					<label className='text-slate-700 text-sm font-semibold flex-1'>
@@ -53,18 +56,21 @@ const Register = () => {
 						<input className='border border-slate-400 w-full rounded-md px-3 py-2' {...register('firstName', { required: 'First Name is required' })} />
 						{errors.firstName && <span className='text-red-500 text-xs'>{errors.firstName.message}</span>}
 					</label>
+
 					<label className='text-slate-700 text-sm font-semibold flex-1'>
 						Last Name
 						<input className='border border-slate-400 w-full rounded-md px-3 py-2' {...register('lastName', { required: 'Last Name is required' })} />
 						{errors.lastName && <span className='text-red-500 text-xs'>{errors.lastName.message}</span>}
 					</label>
 				</div>
-				<label className='text-slate-700 text-sm font-semibold flex-1'>
+
+				<label className='text-slate-700 text-sm font-semibold'>
 					Email
 					<input type='email' className='border border-slate-400 w-full rounded-md px-3 py-2' {...register('email', { required: 'Email is required' })} />
 					{errors.email && <span className='text-red-500 text-xs'>{errors.email.message}</span>}
 				</label>
-				<label className='text-slate-700 text-sm font-semibold flex-1'>
+
+				<label className='text-slate-700 text-sm font-semibold '>
 					Password
 					<input
 						type='password'
@@ -73,7 +79,8 @@ const Register = () => {
 					/>
 					{errors.password && <span className='text-red-500 text-xs'>{errors.password.message}</span>}
 				</label>
-				<label className='text-slate-700 text-sm font-semibold flex-1'>
+
+				<label className='text-slate-700 text-sm font-semibold'>
 					Confirm Password
 					<input
 						type='password'
@@ -91,18 +98,16 @@ const Register = () => {
 					{errors.confirmPassword && <span className='text-red-500 text-xs'>{errors.confirmPassword.message}</span>}
 				</label>
 
-				<span className='text-sm'>
+				<span className='text-sm pt-4'>
 					Already have an account?{' '}
 					<Link to='/sign-in' className='font-semibold'>
 						Sign in
 					</Link>
 				</span>
 
-				
-					<button type='submit' className='bg-slate-700 hover:bg-slate-800 py-3 px-10 text-white font-semibold rounded-full'>
-						Create Account
-					</button>
-				
+				<button type='submit' className='bg-slate-900 text-white font-light text-md hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-full px-2 py-2.5'>
+					Create Account
+				</button>
 			</form>
 			<img src={img} className='hidden lg:block max-h-[500px] ' />
 		</div>

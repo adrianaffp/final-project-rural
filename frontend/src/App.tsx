@@ -1,4 +1,4 @@
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 import { useAppContext } from './contexts/AppContext';
 
@@ -16,8 +16,10 @@ import Booking from './pages/Booking';
 import MyBookings from './pages/MyBookings';
 import HomePage from './pages/HomePage';
 import MyFavorites from './pages/MyFavorites';
+import NotFound from './pages/NotFound';
 
 import Hero from './components/Hero';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
 	const { isLoggedIn } = useAppContext();
@@ -25,6 +27,7 @@ function App() {
 	return (
 		<>
 			<Router>
+				<ScrollToTop/>
 				<Routes>
 					<Route
 						path='/'
@@ -120,7 +123,14 @@ function App() {
 							/>
 						</>
 					)}
-					<Route path='*' element={<Navigate to='/' />} />
+					<Route
+						path='*'
+						element={
+							<Single>
+								<NotFound />
+							</Single>
+						}
+					/>
 				</Routes>
 			</Router>
 		</>

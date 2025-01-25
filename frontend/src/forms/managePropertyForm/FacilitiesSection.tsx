@@ -12,7 +12,7 @@ const FacilitiesSection = () => {
 		<div>
 			<h2 className='text-xl text-slate-700 font-syne font-semibold mb-4'>Popular Facilities:</h2>
 
-			<div className='grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 px-5'>
+			<div className='grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 items-center'>
 				{propertyFacilities.map(facility => (
 					<label className='cursor-pointer flex gap-2 text-sm font-light text-slate-700'>
 						<input
